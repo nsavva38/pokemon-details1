@@ -1,4 +1,4 @@
-export const getAllPokemon = async (main) => {
+const getAllPokemon = async (main) => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
   const responseJSON = await response.json();
   const allPokmeon = responseJSON.results;
@@ -15,21 +15,27 @@ export const getAllPokemon = async (main) => {
 
 
 
-export const renderAllPokemon = async ({getAllPokemon, main}) => {
+export const renderAllPokemon = async ({main}) => {
   await getAllPokemon(main);
   const LIs = document.querySelectorAll(`li`);
   
   LIs.forEach((singlePokemonLI) => {
     singlePokemonLI.addEventListener(`click`, async (event) => {
-      const pokemonName = event.target.innerText;
+      renderSinglePokemon(event.target.innerText, main);
+    });
+  });
+}
+
+const renderSinglePokemon = async (pokemonName, main) => {
       
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-      const pokemonDetails = await response.json();
-      console.log(pokemonDetails);
-      const uppercaseNames = pokemonDetails.name[0].toUpperCase() + pokemonDetails.name.slice(1)
-      main.innerHTML = `<h2>${uppercaseNames}`;
-    })
-  })
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    const pokemonDetails = await response.json();
+    console.log(pokemonDetails);
+    const uppercaseNames = pokemonDetails.name[0].toUpperCase() + pokemonDetails.name.slice(1)
+    main.innerHTML = `
+    <h2>${uppercaseNames}</h2>
+    <img src="${pokemonDetails.sprites.front_default}" alt="${pokemonDetails.name}'s picture"/>
+    `;
 }
 
 // import * as Functions from './functions.js'
