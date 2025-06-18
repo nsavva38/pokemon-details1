@@ -1,9 +1,14 @@
 const getAllPokemon = async (main) => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
   const responseJSON = await response.json();
-  const allPokmeon = responseJSON.results;
+  return responseJSON.results;
+}
 
-  const pokemonNameLIs = allPokmeon.map((singlePokemon) => {
+
+
+export const renderAllPokemon = async ({main}) => {
+  const allPokmeon = await getAllPokemon(main);
+    const pokemonNameLIs = allPokmeon.map((singlePokemon) => {
     const uppercaseNames = singlePokemon.name[0].toUpperCase() + singlePokemon.name.slice(1);
     return `<li>${uppercaseNames}</li>`;
   })
@@ -11,12 +16,7 @@ const getAllPokemon = async (main) => {
   const ol = document.createElement(`ol`);
   ol.innerHTML = pokemonNameLIs.join(``);
   main.replaceChildren(ol);
-}
 
-
-
-export const renderAllPokemon = async ({main}) => {
-  await getAllPokemon(main);
   const LIs = document.querySelectorAll(`li`);
   
   LIs.forEach((singlePokemonLI) => {
