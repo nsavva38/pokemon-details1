@@ -1,11 +1,3 @@
-const getAllPokemon = async (main) => {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
-  const responseJSON = await response.json();
-  return responseJSON.results;
-}
-
-
-
 export const renderAllPokemon = async ({main}) => {
   const allPokmeon = await getAllPokemon(main);
     const pokemonNameLIs = allPokmeon.map((singlePokemon) => {
@@ -24,6 +16,14 @@ export const renderAllPokemon = async ({main}) => {
       renderSinglePokemon(event.target.innerText, main);
     });
   });
+}
+
+
+
+const getAllPokemon = async (main) => {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
+  const responseJSON = await response.json();
+  return responseJSON.results;
 }
 
 const renderSinglePokemon = async (pokemonName, main) => {
