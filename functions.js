@@ -43,5 +43,3 @@ const renderSinglePokemon = async (pokemonName, main) => {
       renderAllPokemon({main});
     })
 }
-
-// import * as Functions from './functions.js'
