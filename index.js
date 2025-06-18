@@ -9,4 +9,3 @@ const renderAllPokemonParams = {
 }
 
 Functions.renderAllPokemon(renderAllPokemonParams);
-

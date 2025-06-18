@@ -4,7 +4,7 @@ export const getAllPokemon = async (main) => {
   const allPokmeon = responseJSON.results;
 
   const pokemonNameLIs = allPokmeon.map((singlePokemon) => {
-    const uppercaseNames = singlePokemon.name[0].toUpperCase() + singlePokemon.name.slice(1)
+    const uppercaseNames = singlePokemon.name[0].toUpperCase() + singlePokemon.name.slice(1);
     return `<li>${uppercaseNames}</li>`;
   })
 
@@ -20,8 +20,14 @@ export const renderAllPokemon = async ({getAllPokemon, main}) => {
   const LIs = document.querySelectorAll(`li`);
   
   LIs.forEach((singlePokemonLI) => {
-    singlePokemonLI.addEventListener(`click`, () => {
-      console.log(`clicked ${singlePokemonLI.innerText}`);
+    singlePokemonLI.addEventListener(`click`, async (event) => {
+      const pokemonName = event.target.innerText;
+      
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+      const pokemonDetails = await response.json();
+      console.log(pokemonDetails);
+      const uppercaseNames = pokemonDetails.name[0].toUpperCase() + pokemonDetails.name.slice(1)
+      main.innerHTML = `<h2>${uppercaseNames}`;
     })
   })
 }
