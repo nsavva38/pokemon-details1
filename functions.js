@@ -1,5 +1,5 @@
 export const renderAllPokemon = async ({main}) => {
-  const allPokmeon = await getAllPokemon(main);
+  const allPokmeon = await getGen1Pokemon();
     const pokemonNameLIs = allPokmeon.map((singlePokemon) => {
     const uppercaseNames = singlePokemon.name[0].toUpperCase() + singlePokemon.name.slice(1);
     return `<li>${uppercaseNames}</li>`;
@@ -20,8 +20,8 @@ export const renderAllPokemon = async ({main}) => {
 
 
 
-const getAllPokemon = async (main) => {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
+const getGen1Pokemon = async () => {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0`);
   const responseJSON = await response.json();
   return responseJSON.results;
 }
