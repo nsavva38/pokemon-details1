@@ -10,7 +10,7 @@ const getAllPokemon = async (main) => {
 
   const ol = document.createElement(`ol`);
   ol.innerHTML = pokemonNameLIs.join(``);
-  main.append(ol);
+  main.replaceChildren(ol);
 }
 
 
@@ -33,9 +33,15 @@ const renderSinglePokemon = async (pokemonName, main) => {
     console.log(pokemonDetails);
     const uppercaseNames = pokemonDetails.name[0].toUpperCase() + pokemonDetails.name.slice(1)
     main.innerHTML = `
-    <h2>${uppercaseNames}</h2>
-    <img src="${pokemonDetails.sprites.front_default}" alt="${pokemonDetails.name}'s picture"/>
+      <h2>${uppercaseNames}</h2>
+      <img src="${pokemonDetails.sprites.front_default}" alt="${pokemonDetails.name}'s picture"/>
+      <button>Back</button>
     `;
+
+    const button = document.querySelector(`button`);
+    button.addEventListener(`click`, async () => {
+      renderAllPokemon({main});
+    })
 }
 
 // import * as Functions from './functions.js'
